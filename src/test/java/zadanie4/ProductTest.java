@@ -19,14 +19,14 @@ public class ProductTest {
     private Product productSpy;
 
     @Test
-    public void testMockList() {
+    public void testMock() {
         //by default, calling the methods of mock object will do nothing
         productMock.setId(12L);
         assertSame(productMock.getId(), 0L);
     }
 
     @Test
-    public void testSpyList() {
+    public void testSpy() {
         //spy object will call the real method when not stub
         productSpy.setId(12L);
         assertSame(12L, productSpy.getId());
