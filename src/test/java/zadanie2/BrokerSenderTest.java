@@ -23,7 +23,7 @@ public class BrokerSenderTest {
 
     @Test(expected = Exception.class)
     public void send() throws Exception {
-        doThrow(new Exception()).when(brokerSender).send(anyString()); // same as when().thenThrow()
+        doThrow(new Exception()).when(brokerSender).send(anyString()); // TODO:: try to change it to "when().thenThrow()"
         brokerSender.send("Lol");
     }
 
