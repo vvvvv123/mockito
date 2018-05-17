@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 public class ProductServiceTest {
 
     private ProductService productService;
+    private Long defaultCarId = 1L;
 
     @Mock
     private ProductDAO productDAO;
@@ -27,25 +28,28 @@ public class ProductServiceTest {
 
     @Test
     public void testFindMileageByYears() throws Exception {
-        when(productDAO.findById(1L)).thenReturn(car);
+        when(productDAO.findById(defaultCarId)).thenReturn(car);
 
+        // test 1
         when(car.getYearMileage()).thenReturn(new HashMap<String, Long>() {{
             put("12", 123L);
             put("13", 2L);
         }});
-        Assert.assertSame(productService.findMileageByYears(1L, "12", "15"), 125L);
+        Assert.assertSame(productService.findMileageByYears(defaultCarId, "12", "15"), 125L);
 
+        // test 2
         when(car.getYearMileage()).thenReturn(new HashMap<String, Long>() {{
             put("1", 1L);
             put("3", 2L);
         }});
-        Assert.assertSame(productService.findMileageByYears(1L, "12", "15"), 0L);
+        Assert.assertSame(productService.findMileageByYears(defaultCarId, "12", "15"), 0L);
 
+        // test 3
         when(car.getYearMileage()).thenReturn(new HashMap<String, Long>() {{
             put("13", 1L);
             put("3", 2L);
         }});
-        Assert.assertSame(productService.findMileageByYears(1L, "12", "15"), 1L);
+        Assert.assertSame(productService.findMileageByYears(defaultCarId, "12", "15"), 1L);
     }
 
     private void setProductDAO() {
@@ -59,7 +63,7 @@ public class ProductServiceTest {
 
     private void setCar() {
         car = mock(Car.class);
-        car.setId(1L);
+        car.setId(defaultCarId);
     }
 
 }
